@@ -1,6 +1,6 @@
 <template>
 <div class="container pt-5">
-<h1 class="title">Orders</h1>
+<h1 class="title pb-5">Your orders</h1>
 <table class="table table-dark">
   <thead>
     <tr>

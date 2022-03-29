@@ -23,12 +23,8 @@ class AuthService {
     }
 
     register(user) {
-        return api.post('register', {
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            password_confirmation: user.password_confirmation
-        });
+        console.log(JSON.stringify(user));
+        return api.post('register', JSON.stringify(user));
     }
 }
 export default new AuthService();

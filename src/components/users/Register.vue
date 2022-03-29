@@ -1,37 +1,28 @@
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
+  <div class="container mt-5">
+    <h1>Register</h1>
+    <div class="card card-container p-3">
       <Form @submit="handleRegister" :validation-schema="schema">
         <div v-if="!successful">
           <div class="form-group">
             <label for="name">Name</label>
             <Field name="name" type="text" class="form-control" />
-            <ErrorMessage name="name" class="error-feedback" />
+            <ErrorMessage name="name" class="error-feedback text-danger" />
           </div>
           <div class="form-group">
             <label for="email">Email</label>
             <Field name="email" type="email" class="form-control" />
-            <ErrorMessage name="email" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <Field name="phone" type="phone" class="form-control" />
-            <ErrorMessage name="phone" class="error-feedback" />
+            <ErrorMessage name="email" class="error-feedback text-danger" />
           </div>
           <div class="form-group">
             <label for="password">Password</label>
             <Field name="password" type="password" class="form-control" />
-            <ErrorMessage name="password" class="error-feedback" />
+            <ErrorMessage name="password" class="error-feedback text-danger" />
           </div>
           <div class="form-group">
-            <label for="passwordrepeat">Password repeat</label>
-            <Field name="passwordrepeat" type="password" class="form-control" />
-            <ErrorMessage name="passwordrepeat" class="error-feedback" />
+            <label for="password_confirmation">Password repeat</label>
+            <Field name="password_confirmation" type="password" class="form-control" />
+            <ErrorMessage name="password_confirmation" class="error-feedback text-danger" />
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block" :disabled="loading">
@@ -70,25 +61,21 @@ export default {
         .string()
         .required("Name is required!")
         .min(3, "Must be at least 3 characters!")
-        .max(50, "Must be maximum 50 characters!"),
+        .max(100, "Must be maximum 50 characters!"),
       email: yup
         .string()
         .required("Email is required!")
         .email("Email is invalid!")
-        .max(50, "Must be maximum 50 characters!"),
-      phone: yup
-        .string()
-        .required("Phone is required!")
-        .min(3, "Must be at least 3 characters!")
-        .max(10, "Must be maximum 10 characters!"),
+        .max(100, "Must be maximum 50 characters!"),
       password: yup
         .string()
         .required("Password is required!")
         .min(6, "Must be at least 6 characters!")
         .max(40, "Must be maximum 40 characters!"),
-      passwordrepeat: yup
+      password_confirmation: yup
         .string()
-        .required("Password is required!")
+        .oneOf([yup.ref('password'), null], 'Passwords must match!')
+        .required("Password confirmation is required!")
         .min(6, "Must be at least 6 characters!")
         .max(40, "Must be maximum 40 characters!"),
     });
@@ -114,7 +101,7 @@ export default {
       this.message = "";
       this.successful = false;
       this.loading = true;
-      this.$store.dispatch("register", user).then(
+      this.$store.dispatch("auth/register", user).then(
         (data) => {
           this.message = data.message;
           this.successful = true;

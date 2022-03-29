@@ -8,6 +8,7 @@ export const auth = {
   namespaced: true,
   state: initialState,
   actions: {
+
     login({commit}, user) {
 
       return AuthService.login(user).then(
@@ -21,12 +22,14 @@ export const auth = {
         }
       );
     },
+
     logout({ commit }) {
       AuthService.logout();
       commit('logout');
     },
-    register({ commit }, userObject) {
-      return AuthService.register(userObject).then(
+
+    register({ commit }, user) {
+      return AuthService.register(user).then(
         response => {
           commit('registerSuccess');
           return Promise.resolve(response.data);
@@ -37,29 +40,37 @@ export const auth = {
         }
       );
     },
+
     refreshToken({ commit }, userObject) {
       commit('refreshToken', userObject);
     }
+
   },
   mutations: {
+
     loginSuccess(state, user) {
       state.status.loggedIn = true;
       state.userObject = user;
     },
+
     loginFailure(state) {
       state.status.loggedIn = false;
       state.userObject = null;
     },
+
     logout(state) {
       state.status.loggedIn = false;
       state.userObject = null;
     },
+
     registerSuccess(state) {
       state.status.loggedIn = false;
     },
+
     registerFailure(state) {
       state.status.loggedIn = false;
     },
+
     refreshToken(state, user) {
       state.status.loggedIn = true;
       state.userObject.access_token = user.access_token;

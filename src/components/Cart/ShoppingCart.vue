@@ -32,10 +32,19 @@ export default {
       },
       totalPrice() {
           return this.$store.getters['cart/getTotalPrice'];
-      }
+      },
+      currentUser() {
+      return this.$store.state.auth.userObject;
+      },
   },
   methods: {
+
     order() {
+      if (!this.currentUser) {
+          this.$router.push('/login');
+          return;
+      }
+
       OrderService.orderItems(this.$store.getters['cart/getProducts']).then(
         (response) => {
           this.$store.dispatch("cart/clearShoppingCart");
