@@ -4,6 +4,7 @@ import Register from "./components/users/Register.vue";
 import MyOrders from "./components/Orders/users/MyOrders.vue";
 import OrderDetail from "./components/Orders/users/OrderDetail.vue";
 import ShoppingCart from "./components/Cart/ShoppingCart.vue";
+import ThanksForOrdering from "./components/ThanksForOrdering.vue"
 
 import ProductOverview from './components/Products/ProductOverview.vue';
 // lazy-loaded
@@ -42,7 +43,13 @@ const routes = [
   { 
     path: '/shoppingcart', 
     component: ShoppingCart, 
-  }
+  },
+  { 
+    path: '/thanksforordering', 
+    name: 'ThanksForOrdering',
+    component: ThanksForOrdering, 
+    props: true
+  },
 
 ];
 const router = createRouter({

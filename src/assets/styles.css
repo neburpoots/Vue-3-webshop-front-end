@@ -12,3 +12,14 @@ body {
 .products {
     gap: 20px;
 }
+
+.titleandclose figure:hover {
+    cursor: pointer;
+}
+
+.thanksforordering {
+    height: 80vh;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
