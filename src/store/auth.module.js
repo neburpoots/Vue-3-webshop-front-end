@@ -1,18 +1,19 @@
 import AuthService from '../services/auth.service';
-const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user
-  ? { status: { loggedIn: true }, user }
-  : { status: { loggedIn: false }, user: null };
+const userObject = JSON.parse(localStorage.getItem('userObject'));
+const initialState = userObject
+  ? { status: { loggedIn: true }, userObject }
+  : { status: { loggedIn: false }, userObject: null };
 
 export const auth = {
   namespaced: true,
   state: initialState,
   actions: {
-    login({ commit }, user) {
+    login({commit}, user) {
+
       return AuthService.login(user).then(
-        user => {
-          commit('loginSuccess', user);
-          return Promise.resolve(user);
+        userObject => {
+          commit('loginSuccess', userObject);
+          return Promise.resolve(userObject);
         },
         error => {
           commit('loginFailure');
@@ -24,8 +25,8 @@ export const auth = {
       AuthService.logout();
       commit('logout');
     },
-    register({ commit }, user) {
-      return AuthService.register(user).then(
+    register({ commit }, userObject) {
+      return AuthService.register(userObject).then(
         response => {
           commit('registerSuccess');
           return Promise.resolve(response.data);
@@ -35,26 +36,34 @@ export const auth = {
           return Promise.reject(error);
         }
       );
+    },
+    refreshToken({ commit }, userObject) {
+      commit('refreshToken', userObject);
     }
   },
   mutations: {
     loginSuccess(state, user) {
       state.status.loggedIn = true;
-      state.user = user;
+      state.userObject = user;
     },
     loginFailure(state) {
       state.status.loggedIn = false;
-      state.user = null;
+      state.userObject = null;
     },
     logout(state) {
       state.status.loggedIn = false;
-      state.user = null;
+      state.userObject = null;
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
     },
     registerFailure(state) {
       state.status.loggedIn = false;
+    },
+    refreshToken(state, user) {
+      state.status.loggedIn = true;
+      state.userObject.access_token = user.access_token;
+      state.userObject.refresh_token = user.refresh_token;
     }
   }
 };

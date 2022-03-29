@@ -1,19 +1,25 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
-      <div class="products" v-for="product in products" :key="product.id">
-        <figure class="figure">
-          <img :src=product.image alt="" class="productImage">
-        </figure>
+  <div class="container mt-5">
+    <h1 class="title">Products</h1>
+      <div class="products d-flex justify-content-between flex-wrap">
+        <product-item
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+        />
       </div>
-    </header>
   </div>
 </template>
 
 <script>
-import UserService from "../services/user.service";
+import UserService from "../../services/user.service";
+import ProductItem from "./ProductItem.vue";
+
 export default {
-  name: "Home",
+  name: "ProductOverview",
+  components: {
+    ProductItem,
+  },
   data() {
     return {
       products: [],

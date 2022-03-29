@@ -1,18 +1,18 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Home from "./components/Home.vue";
-import Login from "./components/Login.vue";
-import Register from "./components/Register.vue";
+import Login from "./components/users/Login.vue";
+import Register from "./components/users/Register.vue";
+import MyOrders from "./components/Orders/users/MyOrders.vue";
+import OrderDetail from "./components/Orders/users/OrderDetail.vue";
+import ShoppingCart from "./components/Cart/ShoppingCart.vue";
+
+import ProductOverview from './components/Products/ProductOverview.vue';
 // lazy-loaded
-const Profile = () => import("./components/Profile.vue")
+const Profile = () => import("./components/users/Profile.vue")
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home,
-  },
-  {
-    path: "/home",
-    component: Home,
+    name: "/",
+    component: ProductOverview,
   },
   {
     path: "/login",
@@ -27,7 +27,23 @@ const routes = [
     name: "profile",
     // lazy-loaded
     component: Profile,
+  },
+  {
+    path: "/myorders",
+    name: "myorders",
+    // lazy-loaded
+    component: MyOrders,
+  },
+  { 
+    path: '/orderdetail/:id', 
+    component: OrderDetail, 
+    props: true  
+  },
+  { 
+    path: '/shoppingcart', 
+    component: ShoppingCart, 
   }
+
 ];
 const router = createRouter({
   history: createWebHistory(),
@@ -35,9 +51,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/register', '/home'];
+    const publicPages = ['/login', '/register', '/', '/shoppingcart'];
     const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.getItem('user');
+    const loggedIn = localStorage.getItem('userObject');
     // trying to access a restricted page + not logged in
     // redirect to login page
     if (authRequired && !loggedIn) {

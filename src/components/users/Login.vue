@@ -1,17 +1,17 @@
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
+  <div class="col-md-12 mt-5">
+    <div class="container p-3 bg-light">
 
       <Form @submit="handleLogin" :validation-schema="schema">
         <div class="form-group">
           <label for="email">Email</label>
           <Field name="email" type="email" class="form-control" />
-          <ErrorMessage name="email" class="error-feedback" />
+          <ErrorMessage name="email" class="error-feedback text-danger" />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
           <Field name="password" type="password" class="form-control" />
-          <ErrorMessage name="password" class="error-feedback" />
+          <ErrorMessage name="password" class="error-feedback text-danger" />
         </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
@@ -65,7 +65,7 @@ export default {
   methods: {
     handleLogin(user) {
       this.loading = true;
-      this.$store.auth.dispatch("login", user).then(
+      this.$store.dispatch("auth/login", user).then(
         () => {
           this.$router.push("/profile");
         },
