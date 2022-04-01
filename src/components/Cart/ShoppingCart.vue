@@ -34,12 +34,13 @@ export default {
           return this.$store.getters['cart/getTotalPrice'];
       },
       currentUser() {
-      return this.$store.state.auth.userObject;
+        return this.$store.state.auth.userObject;
       },
   },
   methods: {
 
     order() {
+
       if (!this.currentUser) {
           this.$router.push('/login');
           return;
@@ -54,7 +55,7 @@ export default {
         (error) => {
           console.log(error);
         }
-    );
+      );
     }
   }
 };

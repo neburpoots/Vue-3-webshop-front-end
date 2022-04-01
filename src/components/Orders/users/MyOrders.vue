@@ -39,7 +39,6 @@ export default {
     OrderService.getMyOrders().then(
       (response) => {
         this.orders = response.data.data;
-        console.log(this.orders);
       },
       (error) => {
         this.products =

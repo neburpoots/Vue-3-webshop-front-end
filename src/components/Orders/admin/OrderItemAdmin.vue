@@ -1,6 +1,8 @@
 <template>
     <tr>
-      <th scope="row">{{order.id}}</th>
+      <td scope="row">{{order.id}}</td>
+      <td>{{order.user.name}}</td>
+      <td>{{order.user.email}}</td>
       <td>{{order.order_date}}</td>
       <td>
         <div v-for="product in order.products" :key="product.id" class="products">
@@ -8,8 +10,8 @@
         </div>
       </td>
       <td>        
-        <button class="btn btn-primary" @click="orderDetail(order.id)">
-          Details
+        <button class="btn btn-danger" @click="orderDelete(order.id)">
+          Delete
         </button>
       </td>
     </tr>
@@ -18,14 +20,14 @@
 
 <script>
 export default {
-  name: "OrderItem",
+  name: "OrderItemAdmin",
   props: {
     order: Object,
   },
   methods: {
-    orderDetail(id) {
-      this.$router.push('/orderdetail/' + id);
-    },
+    orderDelete(id) {
+      this.$emit('content-block-remove', id);
+    }
   }
 };
 </script>

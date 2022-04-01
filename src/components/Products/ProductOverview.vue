@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import UserService from "../../services/user.service";
+import ProductService from "../../services/product.service";
 import ProductItem from "./ProductItem.vue";
 
 export default {
@@ -26,10 +26,9 @@ export default {
     };
   },
   mounted() {
-    UserService.getPublicContent().then(
+    ProductService.getPublicContent().then(
       (response) => {
         this.products = response.data.data;
-        console.log(this.products);
       },
       (error) => {
         this.products =

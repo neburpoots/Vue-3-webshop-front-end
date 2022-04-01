@@ -10,6 +10,12 @@
             :product="product"
           />
         </div>
+        <div class="total pt-5">
+          <p v-if="order.products" class="h2">
+            Total: € {{ totalPrice }}
+          </p>
+        </div>
+
     </div>
   </section>
 </template>
@@ -31,11 +37,11 @@ export default {
       order: Object,
     };
   },
+
   mounted() {
     OrderService.getOneOrder(this.id).then(
       (response) => {
         this.order = response.data.data;
-        console.log(this.order);
       },
       (error) => {
         this.products =
@@ -46,6 +52,16 @@ export default {
           error.toString();
       }
     );
+  },
+  computed: {
+    totalPrice() {
+      let total = 0;
+      this.order.products.forEach(item => {
+            total += item.pivot.quantity * item.price
+      });
+
+      return total.toFixed(2);
+    }
   },
 };
 </script>

@@ -5,6 +5,15 @@ class OrderService {
     getMyOrders() {
         return api.get('user/orders')
     }
+
+    allOrders(id) {
+        return api.get('admin/orders?page=' + id)
+    }
+
+    deleteOrder(id) {
+        return api.delete('admin/orders/' + id)
+    }
+
     getOneOrder(id) {
         return api.get('user/orders/' + id)
     }

@@ -8,14 +8,14 @@
             Videocards
           </router-link>
         </li>
-        <!-- <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link">Admin Board</router-link>
-        </li>
-        <li v-if="showModeratorBoard" class="nav-item">
-          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
-        </li> -->
         <li class="nav-item">
           <router-link v-if="currentUser" to="/myorders" class="nav-link">My orders</router-link>
+        </li>
+        <li v-if="currentUser && adminAccess" class="nav-item">
+          <router-link to="/productmanagement" class="nav-link">Product management</router-link>
+        </li>
+        <li v-if="currentUser && adminAccess" class="nav-item">
+          <router-link to="/ordermanagement" class="nav-link">Order management</router-link>
         </li>
       </div>
       <div class="navbar-nav ml-auto">
@@ -57,6 +57,9 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.userObject;
+    },
+    adminAccess() {
+      return this.$store.state.auth.userObject.user.is_admin;
     }
   },
   methods: {
