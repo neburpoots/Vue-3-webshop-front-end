@@ -21,7 +21,7 @@ Normal user:
 Email: neburpoots@test.com
 Password: Welkom!
 
-#To run this application:
+# To run this application:
 1. clone the repo
 2. run: npm install
 3. run: npm run serve
