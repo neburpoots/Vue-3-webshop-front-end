@@ -1,6 +1,13 @@
 <template>
   <div class="container mt-5">
     <h1 class="title">Products</h1>
+    <div
+      v-if="message"
+      class="alert"
+      :class="successful ? 'alert-success' : 'alert-danger'"
+    >
+      {{ message }}
+    </div>
       <div class="products d-flex justify-content-between flex-wrap">
         <product-item
           v-for="product in products"
@@ -23,6 +30,7 @@ export default {
   data() {
     return {
       products: [],
+      message: "",
     };
   },
   mounted() {
@@ -31,12 +39,14 @@ export default {
         this.products = response.data.data;
       },
       (error) => {
-        this.products =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+      this.message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+            this.successful = false;
+            this.loading = false;
       }
     );
   },
