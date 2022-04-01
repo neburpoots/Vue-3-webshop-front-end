@@ -1,7 +1,7 @@
 # Vue 3 webshop front-end
 This is the client-app for the videocard webshop made with Vue 3.
 
-This applications makes use of Vuex and Vue router 4
+This applications makes use of Vuex and Vue router 4.
 The application uses JWT tokens for authentication and uses axios for api calls.
 
 The application has two roles. Admin and user.
