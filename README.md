@@ -21,11 +21,11 @@ Normal user:
 Email: neburpoots@test.com
 Password: Welkom!
 
-# To run this application:
+## To run this application:
 1. clone the repo
 2. run: npm install
 3. run: npm run serve
 
-##THIS APPLICATION NEEDS THE LARAVEL API TO FUNCTION PROPERLY
+## THIS APPLICATION NEEDS THE LARAVEL API TO FUNCTION PROPERLY
 Laravel backend repo: https://github.com/neburpoots/Videocardwebshop-laravel-API
 
