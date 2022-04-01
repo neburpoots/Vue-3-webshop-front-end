@@ -121,26 +121,8 @@ export default {
 
       if(!this.currentImage) {
         product.image = this.product.image;
-        console.log(product.image)
-      } else {
-        ProductService.imageUpload(this.currentImage).then(
-        (data) => {
-          product.image = data.data;
-          console.log(product.image);
-        },
-        (error) => {
-            this.message =
-            (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-            error.message ||
-            error.toString();
-            this.successful = false;
-            this.loading = false;
-        }
-        );
       }
-      
+
       ProductService.putProduct(product, this.product.id).then(
         (data) => {
             this.message = data.data.message;

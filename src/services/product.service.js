@@ -58,10 +58,15 @@ class ProductService {
         }
     }
 
-    putProduct(product, id) {
+    async putProduct(product, id) {
+        if(Array.isArray(product.image)) {
+            let res = await this.imageUpload(product.image[0]);
+            product.image = res.data;
+        }
+
+
+
         let jsonProduct = JSON.stringify(product);
-        
-        console.log(product);
         
         try {
             return api.put("admin/products/" + id, jsonProduct);
